@@ -22,6 +22,31 @@ const globeTimers = {};
 const remoteImageCache = new Map();
 const remoteImagePending = new Map();
 const cityTitleOverrides = {
+  'Madrid':'Madrid',
+  'Berlin':'Berlin',
+  'Amsterdam':'Amsterdam',
+  'Istanbul':'Istanbul',
+  'Jakarta':'Jakarta',
+  'Bangkok':'Bangkok',
+  'Ho Chi Minh City':'Ho Chi Minh City',
+  'Kuala Lumpur':'Kuala Lumpur',
+  'Manila':'Manila',
+  'Dhaka':'Dhaka',
+  'Karachi':'Karachi',
+  'Cairo':'Cairo',
+  'Cape Town':'Cape Town',
+  'Casablanca':'Casablanca',
+  'Santiago':'Santiago',
+  'Buenos Aires':'Buenos Aires',
+  'Bogotá':'Bogotá',
+  'Doha':'Doha',
+  'Tehran':'Tehran',
+  'Warsaw':'Warsaw',
+  'Vienna':'Vienna',
+  'Copenhagen':'Copenhagen',
+  'Helsinki':'Helsinki',
+  'Auckland':'Auckland',
+  'Accra':'Accra',
   'New York':'New York City',
   'London':'London',
   'Paris':'Paris',
@@ -39,6 +64,31 @@ const cityTitleOverrides = {
   'Mexico City':'Mexico City'
 };
 const portTitleOverrides = {
+  'New York/New Jersey':'Port of New York and New Jersey',
+  'Ho Chi Minh/Cat Lai':'Cat Lai Port',
+  'Lagos/Apapa':'Apapa Port',
+  'Tanger Med':'Tanger Med',
+  'Ningbo-Zhoushan':'Port of Ningbo-Zhoushan',
+  'Tanjung Pelepas':'Port of Tanjung Pelepas',
+  'Port Klang':'Port Klang',
+  'Laem Chabang':'Laem Chabang Port',
+  'Manila Port':'Port of Manila',
+  'Colombo':'Port of Colombo',
+  'Mundra':'Mundra Port',
+  'Chittagong':'Port of Chittagong',
+  'Alexandria':'Port of Alexandria',
+  'Mombasa':'Port of Mombasa',
+  'Tema':'Tema Harbour',
+  'Le Havre':'Port of Le Havre',
+  'Valencia':'Port of Valencia',
+  'Gioia Tauro':'Port of Gioia Tauro',
+  'Algeciras':'Port of Algeciras',
+  'Felixstowe':'Port of Felixstowe',
+  'Vancouver':'Port of Vancouver',
+  'Hong Kong':'Port of Hong Kong',
+  'Qingdao':'Port of Qingdao',
+  'Tianjin':'Port of Tianjin',
+  'Kaohsiung':'Port of Kaohsiung',
   'Shanghai Port':'Port of Shanghai',
   'Singapore Port':'Port of Singapore',
   'Rotterdam':'Port of Rotterdam',
@@ -180,6 +230,46 @@ const countries = [
   ['New Zealand','Oceania','NZD','$250B','$49,000','5.2M','Agriculture and services economy','Medium','Dairy, Meat, Tourism','Food exports','Distance','Housing',[172,-41]],
   ['Kazakhstan','Asia','KZT','$260B','$13,000','20M','Energy and minerals corridor','Low exporter','Oil, Uranium, Metals','Resources','Landlocked logistics','Russia/China balance',[67,48]],
   ['Ghana','Africa','GHS','$76B','$2,300','34M','Gold, cocoa and oil economy','Medium','Gold, Cocoa, Oil','Resource mix','Debt stress','FX pressure',[-1,8]],
+  ['Ukraine','Europe','UAH','$180B','$5,200','37M','War-resilient agriculture and tech economy','Medium imports','Grain, Steel, IT services','Agriculture and tech talent','War damage','Security and reconstruction',[31, 49]],
+  ['Belarus','Europe','BYN','$72B','$7,700','9.2M','State-led industrial economy','High imports','Potash, Machinery, Refined oil','Industrial base','Sanctions','Russia dependence',[28, 53]],
+  ['Slovakia','Europe','EUR','$130B','$24,000','5.4M','Automotive export economy','Medium imports','Cars, Electronics, Machinery','Car manufacturing','Export concentration','Eurozone slowdown',[19, 48.7]],
+  ['Slovenia','Europe','EUR','$70B','$33,000','2.1M','Small high-income manufacturing economy','Medium imports','Pharma, Cars, Machinery','EU integration','Small market','External demand',[14.8, 46.1]],
+  ['Croatia','Europe','EUR','$80B','$20,000','3.9M','Tourism and services economy','Medium imports','Tourism, Ships, Food','Adriatic tourism','Seasonality','Tourism shock',[16, 45]],
+  ['Serbia','Europe','RSD','$75B','$11,000','6.7M','Manufacturing and services convergence economy','High imports','Cars, Metals, Food','Regional industry','Institutional gaps','EU/Russia balance',[21, 44]],
+  ['Bulgaria','Europe','BGN','$100B','$15,000','6.5M','Low-cost EU manufacturing and services','Medium imports','Machinery, Copper, IT services','EU access','Demographics','Energy politics',[25, 43]],
+  ['Lithuania','Europe','EUR','$78B','$28,000','2.8M','Baltic logistics and tech economy','Medium imports','Chemicals, Machinery, Food','Digital services','Small market','Security costs',[24, 55]],
+  ['Latvia','Europe','EUR','$43B','$23,000','1.9M','Baltic services and logistics economy','Medium imports','Wood, Food, Machinery','EU integration','Demographics','Regional security',[25, 57]],
+  ['Estonia','Europe','EUR','$41B','$31,000','1.3M','Digital state and services economy','Medium imports','Tech services, Wood, Machinery','Digital governance','Small scale','Security costs',[26, 59]],
+  ['Luxembourg','Europe','EUR','$90B','$130,000','0.7M','Finance-centered microstate economy','Medium imports','Finance, Funds, Steel','Financial hub','Regulatory pressure','Tax scrutiny',[6, 49.8]],
+  ['Iceland','Europe','ISK','$31B','$82,000','0.39M','Renewable energy and tourism economy','Low renewables','Fish, Aluminum, Tourism','Clean energy','Small market','Tourism volatility',[-19, 65]],
+  ['Malta','Europe','EUR','$22B','$38,000','0.5M','Services, shipping and tourism economy','High imports','Tourism, Financial services, Shipping','Mediterranean services','Scale limits','Regulation risk',[14.4, 35.9]],
+  ['Cyprus','Europe','EUR','$32B','$36,000','1.2M','Tourism and business services economy','High imports','Tourism, Shipping, Services','EU location','Energy imports','Regional tensions',[33, 35]],
+  ['Georgia','Asia/Europe','GEL','$31B','$8,300','3.7M','Transit, tourism and services economy','High imports','Wine, Tourism, Metals','Caucasus corridor','Small market','Regional security',[44, 42]],
+  ['Armenia','Asia/Europe','AMD','$24B','$8,200','3M','Services, mining and diaspora-linked economy','High imports','Copper, IT, Brandy','Diaspora networks','Landlocked logistics','Security risk',[45, 40]],
+  ['Azerbaijan','Asia/Europe','AZN','$75B','$7,300','10M','Oil and gas corridor economy','Low exporter','Oil, Gas, Petrochemicals','Caspian energy','Diversification gap','Energy price swings',[48.5, 40.5]],
+  ['Jordan','Middle East','JOD','$51B','$4,700','11M','Aid, services and logistics economy','High imports','Pharma, Potash, Services','Stability','Water scarcity','Regional shocks',[36, 31]],
+  ['Lebanon','Middle East','LBP','$24B','$3,500','5.5M','Crisis-hit services economy','High imports','Services, Food, Jewelry','Human capital','Banking collapse','Political paralysis',[35.8, 33.8]],
+  ['Oman','Middle East','OMR','$110B','$23,000','4.6M','Oil, gas and logistics economy','Low exporter','Oil, Gas, Metals','Indian Ocean access','Oil dependence','Fiscal transition',[57, 21]],
+  ['Kuwait','Middle East','KWD','$160B','$34,000','4.3M','Oil rentier economy','Low exporter','Crude Oil, Refined products','Oil wealth','Public-sector dependence','Oil cycles',[47.5, 29.3]],
+  ['Bahrain','Middle East','BHD','$45B','$29,000','1.5M','Finance and aluminum Gulf economy','High imports','Aluminum, Finance, Oil products','Financial services','Limited resources','Regional competition',[50.5, 26]],
+  ['Nepal','Asia','NPR','$41B','$1,300','30M','Remittance and tourism economy','High imports','Remittances, Textiles, Tourism','Hydropower potential','Infrastructure gaps','Climate risk',[84, 28]],
+  ['Sri Lanka','Asia','LKR','$84B','$3,800','22M','Tourism, tea and apparel economy','High imports','Tea, Apparel, Tourism','Indian Ocean location','Debt stress','FX shortages',[81, 7]],
+  ['Myanmar','Asia','MMK','$65B','$1,200','55M','Resource and agriculture economy','Medium','Gas, Garments, Rice','Natural resources','Conflict','Sanctions and instability',[96, 21]],
+  ['Cambodia','Asia','KHR','$31B','$1,900','17M','Garment, tourism and construction economy','High imports','Garments, Tourism, Rice','Low-cost manufacturing','External dependence','Political risk',[105, 12]],
+  ['Laos','Asia','LAK','$15B','$2,000','7.5M','Hydropower and mining economy','Medium','Electricity, Copper, Tourism','Hydropower exports','Debt exposure','Currency stress',[103, 18]],
+  ['Mongolia','Asia','MNT','$17B','$5,000','3.5M','Mining corridor economy','Medium imports','Coal, Copper, Gold','Mineral wealth','Landlocked logistics','China dependence',[103, 46]],
+  ['Uzbekistan','Asia','UZS','$91B','$2,600','36M','Reforming resource and textile economy','Low-medium','Gold, Cotton, Gas','Demographics','State dominance','Water stress',[64, 41]],
+  ['Tunisia','Africa','TND','$49B','$4,000','12M','Tourism, manufacturing and services economy','High imports','Textiles, Tourism, Olive oil','EU proximity','Fiscal stress','Political risk',[9, 34]],
+  ['Senegal','Africa','XOF','$31B','$1,700','18M','Services, agriculture and emerging energy economy','Medium imports','Fish, Gold, Phosphates','Stability','Youth jobs','Debt pressure',[-14, 14]],
+  ["Côte d'Ivoire",'Africa','XOF','$79B','$2,700','29M','Cocoa-led West African growth economy','Medium imports','Cocoa, Cashew, Gold','Agribusiness','Commodity dependence','Climate and price risk',[-5, 7.5]],
+  ['Tanzania','Africa','TZS','$79B','$1,200','67M','Agriculture, mining and tourism economy','Medium imports','Gold, Tourism, Coffee','Natural resources','Infrastructure gaps','Climate risk',[35, -6]],
+  ['Uganda','Africa','UGX','$52B','$1,100','49M','Agriculture and emerging oil economy','Medium imports','Coffee, Gold, Fish','Agriculture','Infrastructure gaps','Oil execution risk',[32, 1.5]],
+  ['Rwanda','Africa','RWF','$14B','$1,000','14M','Services and reform-driven economy','High imports','Tourism, Coffee, Minerals','Governance capacity','Small market','Regional tensions',[30, -2]],
+  ['Angola','Africa','AOA','$85B','$2,400','36M','Oil and reconstruction economy','Low exporter','Oil, Diamonds','Energy reserves','Oil dependence','FX volatility',[18, -12]],
+  ['DR Congo','Africa','CDF','$67B','$650','105M','Mineral-rich frontier economy','Medium','Copper, Cobalt, Gold','Critical minerals','Institutions','Conflict risk',[23, -3]],
+  ['Cameroon','Africa','XAF','$49B','$1,800','28M','Diversified Central African economy','Medium','Oil, Cocoa, Timber','Regional hub','Infrastructure','Security risk',[12, 6]],
+  ['Zambia','Africa','ZMW','$29B','$1,400','20M','Copper and agriculture economy','Medium imports','Copper, Cobalt, Tobacco','Copper reserves','Debt pressure','Copper price swings',[28, -14]],
+  ['Mozambique','Africa','MZN','$22B','$650','33M','Gas, minerals and agriculture economy','Medium','Coal, Aluminum, Gas','LNG potential','Debt and security','Insurgency risk',[35, -18]],
 ].map(([name,region,currency,gdp,gdppc,pop,model,energy,exports,strength,vulnerability,risk,coords])=>({name,region,currency,gdp,gdppc,pop,model,energy,exports,strength,vulnerability,risk,coords}));
 
 const countryByName = Object.fromEntries(countries.map(c=>[c.name,c]));
@@ -223,6 +313,13 @@ function entityVisual(kind, name, subtitle=''){
   return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
 }
 function escapeXml(v){return String(v).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+const countryFlagCodes = {
+  'United States':'us','China':'cn','Japan':'jp','Germany':'de','India':'in','United Kingdom':'gb','France':'fr','Italy':'it','Brazil':'br','Canada':'ca','Russia':'ru','Mexico':'mx','South Korea':'kr','Australia':'au','Spain':'es','Indonesia':'id','Netherlands':'nl','Saudi Arabia':'sa','Turkey':'tr','Switzerland':'ch','Taiwan':'tw','Poland':'pl','Argentina':'ar','Belgium':'be','Sweden':'se','Ireland':'ie','Norway':'no','Singapore':'sg','UAE':'ae','Israel':'il','Thailand':'th','Vietnam':'vn','Malaysia':'my','Philippines':'ph','Bangladesh':'bd','Pakistan':'pk','Egypt':'eg','South Africa':'za','Nigeria':'ng','Kenya':'ke','Ethiopia':'et','Morocco':'ma','Algeria':'dz','Chile':'cl','Peru':'pe','Colombia':'co','Uruguay':'uy','Qatar':'qa','Iran':'ir','Iraq':'iq','Greece':'gr','Portugal':'pt','Austria':'at','Czechia':'cz','Denmark':'dk','Romania':'ro','Hungary':'hu','Finland':'fi','New Zealand':'nz','Kazakhstan':'kz','Ghana':'gh'
+};
+function flagImageUrl(name){
+  const code = countryFlagCodes[name];
+  return code ? `https://flagcdn.com/w640/${code}.png` : entityVisual('country', name, 'Flag');
+}
 function photoSeed(kind, name){
   return Math.abs(hashText(`${kind}:${name}`));
 }
@@ -246,6 +343,11 @@ function wikipediaTitleFor(kind, name){
 }
 async function fetchRemotePhoto(kind, name){
   const cacheKey = `${kind}:${name}`;
+  if(kind==='country'){
+    const url = flagImageUrl(name);
+    remoteImageCache.set(cacheKey, url);
+    return url;
+  }
   if(remoteImageCache.has(cacheKey)) return remoteImageCache.get(cacheKey);
   if(remoteImagePending.has(cacheKey)) return remoteImagePending.get(cacheKey);
   const pending = (async()=>{
@@ -268,6 +370,9 @@ async function fetchRemotePhoto(kind, name){
   return pending;
 }
 function infoImage(kind, name, subtitle){
+  if(kind==='country'){
+    return `<div class="info-image country-flag-image is-photo" data-kind="country" data-name="${escapeXml(name)}" data-subtitle="${escapeXml(subtitle||'')}" style="background-image:url('${flagImageUrl(name)}')" aria-label="${escapeXml(name)} flag"></div>`;
+  }
   return `<div class="info-image" data-kind="${escapeXml(kind)}" data-name="${escapeXml(name)}" data-subtitle="${escapeXml(subtitle||'')}" style="background-image:url('${entityVisual(kind,name,subtitle)}')" aria-label="${escapeXml(name)} visual"></div>`;
 }
 function hydratePanelImages(scope=document){
@@ -300,11 +405,11 @@ function lensForItem(item){
 
 
 const cities = [
-  ['New York','financial hub',-74.0,40.7,'finance'],['London','financial hub',-0.1,51.5,'finance'],['Paris','capital',2.35,48.86,'city'],['Singapore','port-finance hub',103.85,1.29,'finance'],['Shanghai','industrial port',121.47,31.23,'city'],['Shenzhen','electronics cluster',114.06,22.54,'city'],['Tokyo','megacity',139.7,35.68,'city'],['Seoul','chips and industry',127,37.56,'city'],['Dubai','logistics hub',55.27,25.2,'finance'],['Riyadh','Vision 2030 hub',46.7,24.7,'city'],['Mumbai','finance',72.87,19.07,'finance'],['São Paulo','Latin America business hub',-46.63,-23.55,'finance'],['Lagos','Africa megacity',3.38,6.52,'city'],['Nairobi','fintech hub',36.82,-1.29,'finance'],['Mexico City','nearshoring command center',-99.13,19.43,'city']
+  ['New York','financial hub',-74.0,40.7,'finance'],['London','financial hub',-0.1,51.5,'finance'],['Paris','capital',2.35,48.86,'city'],['Singapore','port-finance hub',103.85,1.29,'finance'],['Shanghai','industrial port',121.47,31.23,'city'],['Shenzhen','electronics cluster',114.06,22.54,'city'],['Tokyo','megacity',139.7,35.68,'city'],['Seoul','chips and industry',127,37.56,'city'],['Dubai','logistics hub',55.27,25.2,'finance'],['Riyadh','Vision 2030 hub',46.7,24.7,'city'],['Mumbai','finance',72.87,19.07,'finance'],['São Paulo','Latin America business hub',-46.63,-23.55,'finance'],['Lagos','Africa megacity',3.38,6.52,'city'],['Nairobi','fintech hub',36.82,-1.29,'finance'],['Mexico City','nearshoring command center',-99.13,19.43,'city'],['Madrid','political and services capital',-3.7,40.42,'city'],['Berlin','industrial-policy capital',13.4,52.52,'city'],['Amsterdam','trade and finance hub',4.9,52.37,'finance'],['Istanbul','Eurasian bridge city',28.98,41.01,'city'],['Jakarta','Southeast Asian megacity',106.85,-6.21,'city'],['Bangkok','tourism and manufacturing hub',100.5,13.76,'city'],['Ho Chi Minh City','Vietnam export engine',106.63,10.82,'city'],['Kuala Lumpur','finance and electronics node',101.69,3.14,'finance'],['Manila','services and remittance hub',120.98,14.6,'city'],['Dhaka','garment megacity',90.41,23.81,'city'],['Karachi','Pakistan port-finance hub',67.01,24.86,'finance'],['Cairo','Arab world megacity',31.24,30.04,'city'],['Cape Town','tourism and port city',18.42,-33.92,'city'],['Casablanca','Morocco business hub',-7.59,33.57,'finance'],['Santiago','copper-finance capital',-70.66,-33.45,'finance'],['Buenos Aires','macro and culture capital',-58.38,-34.6,'city'],['Bogotá','Andean services hub',-74.07,4.71,'city'],['Doha','gas wealth capital',51.53,25.29,'finance'],['Tehran','sanctioned industrial capital',51.39,35.69,'city'],['Warsaw','CEE growth hub',21.01,52.23,'city'],['Vienna','Central European services hub',16.37,48.21,'city'],['Copenhagen','green urban economy',12.57,55.68,'city'],['Helsinki','Nordic tech capital',24.94,60.17,'city'],['Auckland','Pacific services hub',174.76,-36.85,'city'],['Accra','West African services hub',-0.19,5.56,'city']
 ].map(([name,desc,lon,lat,type])=>({name,desc,lon,lat,type}));
 
 const ports = [
-  ['Shanghai Port','world-scale container gateway',121.8,31.2],['Singapore Port','global transshipment hub',103.75,1.25],['Rotterdam','Europe gateway',4.47,51.92],['Los Angeles/Long Beach','Pacific gateway',-118.24,33.74],['Jebel Ali','Gulf logistics hub',55.05,25.01],['Hamburg','German trade port',9.99,53.55],['Busan','Korea export hub',129.04,35.1],['Shenzhen/Yantian','electronics export port',114.27,22.59],['Santos','Brazil agribusiness port',-46.33,-23.96],['Durban','Southern Africa gateway',31.02,-29.87],['Suez/Port Said','canal chokepoint',32.3,31.25],['Panama Canal','inter-oceanic chokepoint',-79.55,9.08],['Mumbai/JNPT','India west gateway',72.94,18.95],['Piraeus','Mediterranean gateway',23.63,37.94],['Antwerp-Bruges','chemical/logistics hub',4.4,51.22]
+  ['Shanghai Port','world-scale container gateway',121.8,31.2],['Singapore Port','global transshipment hub',103.75,1.25],['Rotterdam','Europe gateway',4.47,51.92],['Los Angeles/Long Beach','Pacific gateway',-118.24,33.74],['Jebel Ali','Gulf logistics hub',55.05,25.01],['Hamburg','German trade port',9.99,53.55],['Busan','Korea export hub',129.04,35.1],['Shenzhen/Yantian','electronics export port',114.27,22.59],['Santos','Brazil agribusiness port',-46.33,-23.96],['Durban','Southern Africa gateway',31.02,-29.87],['Suez/Port Said','canal chokepoint',32.3,31.25],['Panama Canal','inter-oceanic chokepoint',-79.55,9.08],['Mumbai/JNPT','India west gateway',72.94,18.95],['Piraeus','Mediterranean gateway',23.63,37.94],['Antwerp-Bruges','chemical/logistics hub',4.4,51.22],['Hong Kong','Asian container and finance gateway',114.16,22.3],['Ningbo-Zhoushan','Chinese mega-port complex',121.55,29.87],['Qingdao','North China manufacturing port',120.38,36.07],['Tianjin',"Beijing's maritime gateway",117.2,39.08],['Kaohsiung','Taiwan export port',120.3,22.62],['Tanjung Pelepas','Malacca transshipment hub',103.55,1.36],['Port Klang','Malaysia container gateway',101.39,3.0],['Laem Chabang','Thailand industrial port',100.89,13.08],['Ho Chi Minh/Cat Lai','Vietnam export port',106.79,10.76],['Manila Port','Philippines trade gateway',120.96,14.59],['Colombo','Indian Ocean transshipment hub',79.85,6.95],['Mundra','India private mega-port',69.7,22.75],['Chittagong','Bangladesh garment gateway',91.82,22.32],['Alexandria','Egypt Mediterranean gateway',29.91,31.2],['Tanger Med','Morocco Europe-Africa port',-5.5,35.89],['Lagos/Apapa','Nigeria container gateway',3.36,6.45],['Mombasa','East African corridor port',39.67,-4.04],['Tema','Ghana Gulf of Guinea port',0.01,5.64],['Le Havre','French Atlantic gateway',0.11,49.49],['Valencia','Spanish Mediterranean port',-0.32,39.45],['Gioia Tauro','Italy transshipment hub',15.9,38.43],['Algeciras','Strait of Gibraltar gateway',-5.45,36.14],['Felixstowe','UK container gateway',1.32,51.96],['Vancouver','Canadian Pacific gateway',-123.12,49.29],['New York/New Jersey','US Atlantic gateway',-74.05,40.67]
 ].map(([name,desc,lon,lat])=>({name,desc,lon,lat,type:'port'}));
 
 const cityProfiles = {
@@ -343,10 +448,27 @@ const portProfiles = {
   'Antwerp-Bruges': {tag:'Chemicals and logistics hub', lens:'Antwerp-Bruges combines container trade with one of Europe’s deepest petrochemical and industrial clusters.', watch:'Energy prices, chemical demand, customs security and North Sea competition.', matters:'It is not just a port: it is an industrial ecosystem.'}
 };
 
+function generatedEntityProfile(item){
+  if(!item) return null;
+  if(item.type==='port'){
+    return {
+      tag:item.desc || 'Port / chokepoint',
+      lens:`${item.name} is a logistics node where maritime routes, customs, storage and inland transport meet.`,
+      watch:'Container flows, terminal capacity, hinterland rail/roads, labor reliability, weather and geopolitical disruption.',
+      matters:'Ports turn geography into economic power by deciding how fast goods, energy and inputs reach markets.'
+    };
+  }
+  return {
+    tag:item.desc || (item.type==='finance' ? 'Finance and services hub' : 'City / economic node'),
+    lens:`${item.name} concentrates people, firms, infrastructure and decision-making into one urban economy.`,
+    watch:'Investment flows, housing pressure, transport capacity, talent concentration and national policy choices.',
+    matters:'Cities make national economies visible: they show where capital, workers and infrastructure actually meet.'
+  };
+}
 function getEntityProfile(item){
   if(!item) return null;
-  if(item.type==='port') return portProfiles[item.name];
-  return cityProfiles[item.name];
+  if(item.type==='port') return portProfiles[item.name] || generatedEntityProfile(item);
+  return cityProfiles[item.name] || generatedEntityProfile(item);
 }
 
 const tradeRoutes = [
@@ -381,14 +503,40 @@ const stories = [
   ['mexico-nearshoring','🇲🇽',"Mexico's nearshoring boom",'Mexico','Industry','How geography turned Mexico into the new factory of North America.', [-99.13,19.43]],
   ['green-deal','🌱',"Europe's Green Deal gamble",'Europe','Energy','A continent betting industrial policy on decarbonisation.', [8,50]],
   ['russia-war-economy','🛡️',"Russia's war economy",'Russia','Macro',"How sanctions reshaped — but did not break — Russia's economy.", [37.6,55.75]],
+
+  ['japan-debt','🇯🇵',"Japan's debt paradox",'Japan','Macro','Why a country can owe so much and still remain financially stable.', [138,37]],
+  ['chaebols-korea','🏢','How chaebols built Korea','South Korea','Industry','How family-controlled conglomerates powered industrial catch-up and created new vulnerabilities.', [127,37.56]],
+  ['lithium-triangle','🔋','The Lithium Triangle','Latin America','Energy','Why Argentina, Chile and Bolivia sit at the center of the battery economy.', [-68,-23]],
+  ['ai-geography','🧠','The new AI compute geography','Global','Industry','Why data centers, chips, power grids and water are becoming strategic infrastructure.', [-122,37]],
+  ['water-crunch','💧','The global water crunch','Global','Development','How water scarcity is becoming an economic and geopolitical constraint.', [35,31]],
+  ['panama-drought','🚢','When the Panama Canal runs short of water','Panama','Logistics','How drought can slow ships, raise prices and expose the hidden fragility of trade.', [-79.55,9.08]],
+  ['red-sea-shock','🌊','Why the Red Sea matters','Middle East','Logistics','A narrow maritime corridor shows how security shocks can reroute global commerce.', [43.3,12.6]],
+  ['nigeria-oil','🛢️',"Nigeria's oil paradox",'Nigeria','Energy','Why huge oil reserves do not automatically create fiscal stability or development.', [8,9]],
+  ['kenya-mobile-money','📱','Kenya and the mobile money leap','Kenya','Fintech','How mobile payments changed finance before traditional banking reached everyone.', [36.82,-1.29]],
+  ['morocco-industrial','🚗',"Morocco's industrial bet",'Morocco','Industry','How cars, ports, renewables and EU proximity reshaped a North African economy.', [-6,32]],
+  ['egypt-suez-fx','🛳️','Egypt, Suez and the dollar shortage','Egypt','Macro','Why canals, food imports, tourism and foreign currency all connect.', [32.3,30.4]],
+  ['turkey-inflation','💱',"Turkey's inflation experiment",'Turkey','Macro','How currency pressure, interest rates and politics reshape household life.', [35,39]],
+  ['indonesia-nickel','🪨',"Indonesia's nickel strategy",'Indonesia','Industry','How one resource became a lever in the electric vehicle supply chain.', [118,-2]],
+  ['vietnam-china-plus-one','🏭','Vietnam and China+1','Vietnam','Industry','Why manufacturers use Vietnam to diversify Asian supply chains.', [108,16]],
+  ['qatar-lng','⛽','Qatar and the LNG age','Qatar','Energy','How gas wealth turned a small state into a global energy player.', [51,25]],
+  ['uae-logistics','✈️','The UAE logistics model','UAE','Logistics','How ports, airlines, free zones and finance created a Gulf platform economy.', [54,24]],
+  ['swiss-safe-haven','🏦','Why Switzerland is a safe haven','Switzerland','Macro','How stability, finance, currency credibility and institutions reinforce each other.', [8,47]],
+  ['poland-convergence','🇵🇱',"Poland's convergence story",'Poland','Development','How EU integration, manufacturing and institutions helped narrow the income gap.', [20,52]],
+  ['ethiopia-hydro','⚡',"Ethiopia's hydropower gamble",'Ethiopia','Energy','Why dams can become development tools, diplomatic pressure points and financial risks.', [40,9]],
+  ['south-africa-power','🔌',"South Africa's power crisis",'South Africa','Energy','How electricity shortages can limit growth in an industrial economy.', [24,-29]],
+  ['mexico-border-factories','🏭','Mexico, borders and factories','Mexico','Industry','Why proximity to the US is becoming one of Mexico’s biggest economic assets.', [-102,23]],
+  ['arctic-shipping','🧊','Arctic shipping and great power rivalry','Arctic','Geopolitics','How melting ice creates new routes, risks and strategic competition.', [50,72]],
+  ['cocoa-west-africa','🍫','Cocoa and West Africa','Côte d\'Ivoire & Ghana','Development','Why the world’s chocolate supply depends on farmers with little pricing power.', [-3,7]],
+  ['green-hydrogen','🟢','The green hydrogen race','Global','Energy','Why countries with sun, wind, ports and industry want to export clean molecules.', [10,25]],
+  ['remittances-economy','💸','How remittances shape economies','Global','Macro','Why money sent by migrants can stabilize households and entire countries.', [72,19]],
 ].map(([id,icon,title,place,category,description,coords])=>({id,icon,title,place,category,description,coords,coming:false}));
 
 const comingSoon = [
-  ['japan-debt','🇯🇵',"Japan's debt paradox",'Japan','Macro'],
-  ['chaebols-korea','🏢','How chaebols built Korea','South Korea','Industry'],
-  ['lithium-triangle','🔋','The Lithium Triangle','Latin America','Energy'],
-  ['ai-geography','🧠','The new AI compute geography','Global','Industry'],
-  ['water-crunch','💧','The global water crunch','Global','Development']
+  ['food-security','🌾','Food security in a hotter world','Global','Development'],
+  ['space-economy','🛰️','The space economy and national power','Global','Industry'],
+  ['insurance-climate','☔','Climate insurance and fragile states','Global','Macro'],
+  ['african-rail','🚆','Africa’s rail corridor race','Africa','Logistics'],
+  ['digital-currencies','🪙','Central bank digital currencies','Global','Fintech']
 ].map(([id,icon,title,place,category])=>({id,icon,title,place,category,description:'Coming soon.',coming:true}));
 
 const didYouKnow = [
@@ -437,7 +585,39 @@ const storySteps = {
     {title:'Riyadh becomes the command center',place:'Riyadh',coords:[46.7,24.7],text:'Vision 2030 turns the capital into a hub for investment, tourism, finance and administrative reform.'},
     {title:'Megaprojects sell a new future',place:'NEOM',coords:[35.1,28.1],text:'Projects like NEOM are designed to signal a post-oil identity and attract global capital.'},
     {title:'The test is private productivity',place:'Gulf region',coords:[54,24],text:'The long-term challenge is whether spending can become a durable private-sector economy.'}
-  ]
+  ],
+
+  'panama-drought': [
+    {title:'The canal is a water machine',place:'Panama Canal',coords:[-79.55,9.08],text:'The Panama Canal is not only a shortcut. It depends on freshwater locks, rainfall and lake levels.'},
+    {title:'Drought becomes a trade constraint',place:'Gatun Lake',coords:[-79.9,9.25],text:'When water levels fall, authorities can restrict ship draft or daily crossings, turning climate into logistics policy.'},
+    {title:'Shippers reroute and prices adjust',place:'Pacific and Atlantic routes',coords:[-84,12],text:'Delays push companies to pay premiums, wait longer or reroute through other corridors.'},
+    {title:'A local weather shock becomes global',place:'US and Asian markets',coords:[-118,34],text:'The effects spread into shipping schedules, inventories and consumer prices far beyond Panama.'}
+  ],
+  'red-sea-shock': [
+    {title:'A narrow corridor carries global trade',place:'Bab el-Mandeb',coords:[43.3,12.6],text:'The Red Sea links the Indian Ocean to Suez, making it central to Asia-Europe trade.'},
+    {title:'Security risk changes the route',place:'Red Sea',coords:[38,20],text:'Attacks, insurance costs and naval risk can make ships avoid the corridor.'},
+    {title:'The long way is expensive',place:'Cape of Good Hope',coords:[18,-34],text:'Rerouting around Africa adds time, fuel and uncertainty.'},
+    {title:'Europe feels the delay',place:'Rotterdam',coords:[4.47,51.92],text:'The shock arrives as delayed inputs, higher freight rates and pressure on inventories.'}
+  ],
+  'lithium-triangle': [
+    {title:'Lithium starts in the salt flats',place:'Atacama / Andes',coords:[-68,-23],text:'Lithium brines in Argentina, Chile and Bolivia sit beneath some of the driest landscapes on earth.'},
+    {title:'Batteries pull demand north',place:'North America',coords:[-100,38],text:'Electric vehicles and grid batteries turn mineral deposits into industrial strategy.'},
+    {title:'Processing decides value',place:'China and Asia',coords:[104,35],text:'Mining is only one part of the chain. Refining and battery manufacturing decide who captures value.'},
+    {title:'The local constraint is water',place:'Andean communities',coords:[-67,-22],text:'The economic opportunity collides with water use, environmental stress and local politics.'}
+  ],
+  'indonesia-nickel': [
+    {title:'Nickel begins in the islands',place:'Sulawesi / Indonesia',coords:[121,-3],text:'Indonesia’s nickel deposits became strategically valuable as EV battery demand increased.'},
+    {title:'Export bans force processing at home',place:'Jakarta',coords:[106.85,-6.21],text:'Policy pushed firms to build smelters and processing capacity inside Indonesia.'},
+    {title:'Capital and technology connect to Asia',place:'China and Korea',coords:[120,30],text:'Battery supply chains link Indonesian resources to Asian industrial firms.'},
+    {title:'The test is upgrading',place:'Global EV markets',coords:[10,50],text:'The challenge is moving from raw materials into higher-value industrial capability.'}
+  ],
+  'uae-logistics': [
+    {title:'The model starts at the port',place:'Jebel Ali',coords:[55.05,25.01],text:'Jebel Ali turned Dubai into a regional re-export and warehousing platform.'},
+    {title:'Air routes multiply the effect',place:'Dubai',coords:[55.27,25.2],text:'Airlines and airports connect high-value goods, tourism and business services.'},
+    {title:'Free zones reduce friction',place:'Gulf corridors',coords:[54,24],text:'Rules, logistics and finance are packaged together to attract firms.'},
+    {title:'The platform reaches three continents',place:'Asia, Africa and Europe',coords:[43,20],text:'The UAE model depends on being a connector between regions rather than a large domestic market.'}
+  ],
+
 };
 const globeStoryIds = Object.keys(storySteps);
 
@@ -570,7 +750,7 @@ function storyPage(){
   const txt = storyText(s,state.storyLayer);
   const time = estimateMinutes(txt,state.storyLayer,s.id);
   const hasGlobe = globeStoryIds.includes(s.id);
-  return layout(`<div class="story-detail"><button class="pill-btn" onclick="navigate('stories')">← Back to stories</button><div class="story-hero"><div class="story-top"><span class="story-icon">${s.icon}</span><span class="tag ${s.category}">${s.category}</span></div><div class="section-kicker">${s.place} · ${time}</div><h2>${s.title}</h2><p class="page-sub" style="margin-bottom:0">${s.description}</p><div class="story-actions">${hasGlobe?`<button class="dark-btn" onclick="openStoryGlobe('${s.id}')">View on globe →</button>`:''}</div></div><div class="layer-tabs">${['quick','medium','deep'].map(l=>`<button class="layer-tab ${state.storyLayer===l?'active':''}" onclick="state.storyLayer='${l}'; render()">${l==='quick'?'Quick Insight':l==='medium'?'Medium Story':'Deep Dive'} · ${estimateMinutes(storyText(s,l),l,s.id)}</button>`).join('')}</div><article class="article">${articleHTML(s,txt)}${hasGlobe?'':storyVisual(s)}</article></div>`);
+  return layout(`<div class="story-detail"><button class="pill-btn" onclick="navigate('stories')">← Back to stories</button><div class="story-hero"><div class="story-top"><span class="story-icon">${s.icon}</span><span class="tag ${s.category}">${s.category}</span></div><div class="section-kicker">${s.place} · ${time}</div><h2>${s.title}</h2><p class="page-sub" style="margin-bottom:0">${s.description}</p><div class="story-actions">${hasGlobe?`<button class="dark-btn" onclick="openStoryGlobe('${s.id}')">View on globe →</button>`:''}</div></div><div class="layer-tabs">${['quick','medium','deep'].map(l=>`<button class="layer-tab ${state.storyLayer===l?'active':''}" onclick="state.storyLayer='${l}'; render()">${l==='quick'?'Quick Insight':l==='medium'?'Medium Story':'Deep Dive'} · ${estimateMinutes(storyText(s,l),l,s.id)}</button>`).join('')}</div><article class="article">${articleHTML(s,txt)}</article></div>`);
 }
 
 function storyVisual(s){
@@ -596,8 +776,8 @@ function compare(){
   const rows=[['GDP',a.gdp,b.gdp],['GDP per capita',a.gdppc,b.gdppc],['Population',a.pop,b.pop],['Currency',a.currency,b.currency],['Energy dependence',a.energy,b.energy],['Debt / risk lens',a.risk,b.risk],['Economic model',a.model,b.model],['Main exports',a.exports,b.exports]];
   return layout(`<div class="section-kicker">Compare</div><h2 class="page-title">Two countries, side by side</h2><p class="page-sub">A quick way to spot what makes economies different.</p><div class="compare-selectors"><div class="selector-card"><h3>${flag(a.name)} ${a.name}</h3>${selectCountry('compareA')}</div><div class="selector-card"><h3>${flag(b.name)} ${b.name}</h3>${selectCountry('compareB')}</div></div><div class="contrast"><b>Key contrast</b>${a.name} is shaped by ${a.model.toLowerCase()}, while ${b.name} is shaped by ${b.model.toLowerCase()}.</div><div class="compare-table">${rows.map(r=>`<div class="compare-row"><div class="left">${r[1]}</div><div class="label">${r[0]}</div><div class="right">${r[2]}</div></div>`).join('')}</div>`);
 }
-function selectCountry(key){return `<select class="select" onchange="state.${key}=this.value; render()">${countries.map(c=>`<option ${state[key]===c.name?'selected':''}>${c.name}</option>`).join('')}</select>`}
-function flag(name){const m={'Brazil':'🇧🇷','Singapore':'🇸🇬','Germany':'🇩🇪','China':'🇨🇳','Japan':'🇯🇵','United States':'🇺🇸','India':'🇮🇳','Russia':'🇷🇺','Mexico':'🇲🇽','Saudi Arabia':'🇸🇦','Taiwan':'🇹🇼','South Korea':'🇰🇷','France':'🇫🇷','United Kingdom':'🇬🇧'};return m[name]||'🌐'}
+function selectCountry(key){const sorted=[...countries].sort((a,b)=>a.name.localeCompare(b.name));return `<select class="select" onchange="state.${key}=this.value; render()">${sorted.map(c=>`<option ${state[key]===c.name?'selected':''}>${c.name}</option>`).join('')}</select>`}
+function flag(name){const code=countryCodeForFlag(name); if(!code) return '🌐'; return code.toUpperCase().replace(/./g,ch=>String.fromCodePoint(127397+ch.charCodeAt(0)));}
 
 function daily(){
   return layout(`<div class="section-kicker">▣ Daily Brief · Demo edition</div><h2 class="page-title">5 things shaping the world today</h2><p class="page-sub">Read in 4 minutes. Sound smart at lunch.</p><div class="daily-list">${dailyBrief.map((d,i)=>`<div class="daily-card"><div class="daily-top"><span class="daily-num">${String(i+1).padStart(2,'0')}</span><span class="tag ${d.cat}">${d.cat}</span><span class="story-place">${d.place}</span></div><h3>${d.title}</h3><div class="brief-sections"><div class="brief-section"><b>What happened</b><p>${d.h}</p></div><div class="brief-section"><b>Why it matters</b><p>${d.m}</p></div><div class="brief-section"><b>What to watch</b><p>${d.w}</p></div></div></div>`).join('')}</div>`)
