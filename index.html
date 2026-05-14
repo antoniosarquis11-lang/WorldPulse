@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="WorldPulse is a visual intelligence platform for understanding economics, geopolitics, trade, power, and global events." />
+  <meta name="keywords" content="WorldPulse, economics, geopolitics, global affairs, world atlas, trade, country comparison" />
+  <meta name="author" content="WorldPulse" />
+  <meta property="og:title" content="WorldPulse — Economics & Geopolitics" />
+  <meta property="og:description" content="Understand how global events, countries, trade, and power are connected." />
+  <meta property="og:type" content="website" />
+  <title>WorldPulse — Economics & Geopolitics</title>
+  <link rel="icon" href="assets/worldpulse-logo.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="site-bg" aria-hidden="true">
+    <div class="orb orb-one"></div>
+    <div class="orb orb-two"></div>
+    <div class="grid-overlay"></div>
+  </div>
+
+  <header class="nav-shell">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="#today" class="brand" aria-label="WorldPulse home">
+        <img src="assets/worldpulse-logo.svg" alt="WorldPulse logo" />
+        <span>
+          <strong>WorldPulse</strong>
+          <small>Economics · Geopolitics</small>
+        </span>
+      </a>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
+      <div class="nav-links">
+        <a href="#today">Today</a>
+        <a href="#stories">Stories</a>
+        <a href="#atlas">Atlas</a>
+        <a href="#compare">Compare</a>
+        <a href="#feedback">Feedback</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section id="today" class="hero section-pad">
+      <div class="hero-copy reveal">
+        <p class="eyebrow">Visual intelligence for a connected world</p>
+        <h1>Understand the forces moving the world.</h1>
+        <p class="hero-subtitle">WorldPulse explains economics and geopolitics through clear stories, an interactive atlas, and country comparison tools.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#stories">Explore stories</a>
+          <a class="btn secondary" href="#atlas">Open atlas</a>
+        </div>
+      </div>
+      <div class="hero-visual reveal" aria-label="Stylized global pulse visual">
+        <div class="globe-card">
+          <div class="globe">
+            <div class="continent africa"></div>
+            <div class="continent europe"></div>
+            <div class="continent asia"></div>
+            <div class="pulse-dot dot-a"></div>
+            <div class="pulse-dot dot-b"></div>
+            <div class="pulse-dot dot-c"></div>
+            <div class="route route-one"></div>
+            <div class="route route-two"></div>
+          </div>
+          <div class="signal-panel">
+            <span>Live Lens</span>
+            <strong>Trade · Energy · Power</strong>
+            <small>Map-driven explanations, not isolated facts.</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="brief-strip section-pad compact reveal" aria-label="Today brief">
+      <div class="section-heading inline">
+        <div>
+          <p class="eyebrow">Today</p>
+          <h2>Start with the world now</h2>
+        </div>
+        <a href="#stories" class="text-link">Read deeper →</a>
+      </div>
+      <div class="brief-grid">
+        <article class="brief-card featured">
+          <span class="tag trade">Trade</span>
+          <h3>Shipping routes, chokepoints, and fragile supply chains</h3>
+          <p>Why a local disruption can quickly become a global price, insurance, and trade problem.</p>
+        </article>
+        <article class="brief-card">
+          <span class="tag energy">Energy</span>
+          <h3>Energy security is back at the center of power politics</h3>
+          <p>From LNG terminals to rare earths, infrastructure is becoming strategy.</p>
+        </article>
+        <article class="brief-card">
+          <span class="tag development">Development</span>
+          <h3>Urban growth is reshaping emerging economies</h3>
+          <p>Megacities increasingly decide productivity, inequality, logistics, and political pressure.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="stories" class="section-pad reveal">
+      <div class="section-heading">
+        <p class="eyebrow">Stories</p>
+        <h2>Three-layer explanations</h2>
+        <p>Each WorldPulse story can be read quickly or explored deeply: Quick Insight, Medium Story, and Deep Dive.</p>
+      </div>
+      <div class="filter-row" role="list" aria-label="Story categories">
+        <button class="chip active" data-filter="all">All</button>
+        <button class="chip" data-filter="trade">Trade</button>
+        <button class="chip" data-filter="energy">Energy</button>
+        <button class="chip" data-filter="security">Security</button>
+        <button class="chip" data-filter="development">Development</button>
+        <button class="chip" data-filter="technology">Technology</button>
+      </div>
+      <div class="story-grid" id="storyGrid">
+        <article class="story-card" data-category="trade">
+          <span class="tag trade">Trade</span>
+          <h3>Why the Suez Canal still shapes globalization</h3>
+          <p>A narrow maritime passage links Asia, Europe, energy markets, and Egypt’s strategic revenue.</p>
+          <div class="layer-times"><span>1 min</span><span>4 min</span><span>9 min</span></div>
+        </article>
+        <article class="story-card" data-category="energy">
+          <span class="tag energy">Energy</span>
+          <h3>The new geography of energy security</h3>
+          <p>Power is increasingly decided by pipelines, LNG terminals, grids, and critical minerals.</p>
+          <div class="layer-times"><span>1 min</span><span>5 min</span><span>8 min</span></div>
+        </article>
+        <article class="story-card" data-category="security">
+          <span class="tag security">Security</span>
+          <h3>Chokepoints as geopolitical pressure points</h3>
+          <p>Hormuz, Malacca, Suez, Panama, and Bab el-Mandeb reveal how geography constrains power.</p>
+          <div class="layer-times"><span>2 min</span><span>4 min</span><span>10 min</span></div>
+        </article>
+        <article class="story-card" data-category="development">
+          <span class="tag development">Development</span>
+          <h3>Why ports can transform developing economies</h3>
+          <p>Ports connect industrial policy, customs, logistics, exports, jobs, and regional inequality.</p>
+          <div class="layer-times"><span>1 min</span><span>3 min</span><span>7 min</span></div>
+        </article>
+        <article class="story-card" data-category="technology">
+          <span class="tag technology">Technology</span>
+          <h3>Digital payments and the future of inclusion</h3>
+          <p>Instant payment systems can change banking access, state capacity, informality, and data politics.</p>
+          <div class="layer-times"><span>1 min</span><span>5 min</span><span>9 min</span></div>
+        </article>
+        <article class="story-card" data-category="development">
+          <span class="tag development">Development</span>
+          <h3>Megacities and the economics of pressure</h3>
+          <p>Urban growth creates opportunity, congestion, housing tension, productivity, and political demands.</p>
+          <div class="layer-times"><span>2 min</span><span>5 min</span><span>10 min</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="atlas" class="section-pad atlas reveal">
+      <div class="section-heading">
+        <p class="eyebrow">Atlas</p>
+        <h2>Explore places as systems</h2>
+        <p>Countries, cities, ports, chokepoints, and resources are connected to stories instead of isolated encyclopedia entries.</p>
+      </div>
+      <div class="atlas-layout">
+        <div class="atlas-map" aria-label="Stylized WorldPulse atlas">
+          <div class="map-grid"></div>
+          <button class="map-point p1" data-panel="Singapore"><span>Singapore</span></button>
+          <button class="map-point p2" data-panel="Rotterdam"><span>Rotterdam</span></button>
+          <button class="map-point p3" data-panel="Lagos"><span>Lagos</span></button>
+          <button class="map-point p4" data-panel="Suez Canal"><span>Suez</span></button>
+          <button class="map-point p5" data-panel="São Paulo"><span>São Paulo</span></button>
+        </div>
+        <aside class="atlas-panel" id="atlasPanel">
+          <span class="tag atlas-tag">Selected location</span>
+          <h3>Singapore</h3>
+          <p>A compact city-state whose global importance comes from ports, finance, trade routes, governance, and its position between major Asian markets.</p>
+          <ul>
+            <li><strong>Lens:</strong> Trade and strategic geography</li>
+            <li><strong>Connected stories:</strong> Chokepoints, ports, supply chains</li>
+            <li><strong>Why it matters:</strong> Small territory, oversized global role</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section id="compare" class="section-pad reveal">
+      <div class="section-heading">
+        <p class="eyebrow">Compare</p>
+        <h2>Compare countries like an analyst</h2>
+        <p>WorldPulse comparisons should explain meaning, not just show numbers.</p>
+      </div>
+      <div class="compare-card">
+        <div class="compare-controls">
+          <label>Country A
+            <select id="countryA">
+              <option>Brazil</option>
+              <option>Egypt</option>
+              <option>India</option>
+              <option>Morocco</option>
+              <option>Nigeria</option>
+            </select>
+          </label>
+          <label>Country B
+            <select id="countryB">
+              <option>Nigeria</option>
+              <option>Brazil</option>
+              <option>Egypt</option>
+              <option>India</option>
+              <option>Morocco</option>
+            </select>
+          </label>
+        </div>
+        <div class="comparison-output" id="comparisonOutput">
+          <h3>Brazil vs Nigeria</h3>
+          <p>Brazil has a larger industrial and agricultural base, while Nigeria has major demographic and energy potential. The key contrast is institutional depth versus long-term market expansion.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="feedback" class="section-pad feedback reveal">
+      <div class="feedback-card">
+        <div>
+          <p class="eyebrow">Feedback</p>
+          <h2>Help improve WorldPulse</h2>
+          <p>Share what feels useful, confusing, missing, or visually weak. Feedback helps decide what should be improved before scaling the platform.</p>
+        </div>
+        <a class="btn primary" href="https://docs.google.com/forms/d/e/1FAIpQLSfFIOOyXHESA-_SzKrPxkeaoVsOElPLU3BJiiVLTo1cubgv0A/viewform?usp=header" target="_blank" rel="noopener noreferrer">Open feedback form</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="brand footer-brand">
+      <img src="assets/worldpulse-logo.svg" alt="WorldPulse logo" />
+      <span>
+        <strong>WorldPulse</strong>
+        <small>Economics · Geopolitics</small>
+      </span>
+    </div>
+    <p>Understand how events, countries, trade, and power are connected.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
